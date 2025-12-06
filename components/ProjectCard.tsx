@@ -10,7 +10,7 @@ export default function ProjectCard({ project } : { project: Project }) {
             {project.title}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            Category: {project.category}
+            Category: {project.tags}
           </p>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (

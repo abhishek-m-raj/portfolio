@@ -27,13 +27,16 @@ export type Project = {
   id: string;
   title: string;
   slug: string;
+  synopsis: string;
+  featured?: boolean;
 
+  status?: 'planned' | 'in-progress' | 'completed' | 'archived';
   projectKind?: ProjectKind;
-  type?: string;
-  category?: string;
+  visibility?: ProjectVisibility;
+  tags?: string[];
 
   techStack: string[];
-  description: string;
+  description?: string;
 
   logo?: string;
   banner?: string;
@@ -45,16 +48,11 @@ export type Project = {
 
   collaborators?: {
     name: string;
+    image?: string;
     url?: string;
     role?: string;
   }[];
 
-  tags?: string[];
-  featured?: boolean;
-
   startDate?: string;
   endDate?: string;
-  status?: 'planned' | 'in-progress' | 'completed' | 'archived';
-
-  visibility?: ProjectVisibility;
 };

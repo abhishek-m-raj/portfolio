@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
 import { Project } from '@/types/project';
 import GalleryCarousel from '@/components/GalleryCarousel';
+import ProjectLinks from '@/components/ProjectLinks';
+import ProjectMetadataTags from '@/components/ProjectMetadataTags';
+import CollaboratorsList from '@/components/CollaboratorsList';
+import Breadcrumbs from '@/components/BreadCrumb';
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -44,110 +47,67 @@ export default function ProjectDetailPage() {
     return <div className="text-center py-8 text-gray-500 dark:text-gray-400">Project not found.</div>;
   }
 
-  const images = project.media.filter((m) => m.type === 'image').map((m) => m.url);
-  const videos = project.media.filter((m) => m.type === 'video');
+  const breadcrumbItems = [
+    { label: 'Home', path: '/' },
+    { label: 'Projects', path: '/projects' },
+    { label: project.title, path: undefined }, 
+  ];
 
   return (
-    <div className="py-8">
-      <h1 className="text-4xl font-bold text-center mb-6 text-gray-900 dark:text-white">{project.title}</h1>
-      <p className="text-center text-lg text-gray-600 dark:text-gray-300 mb-8">{project.description}</p>
-
-      {images.length > 0 && (
-        <div className="mb-8">
-          <GalleryCarousel media={project.media} />
-        </div>
-      )}
-
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Details</h2>
-          {project.category && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              <span className="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm font-medium rounded-full">
-                {project.category}
-              </span>
-            </div>
-          )}
-          {project.techStack.length > 0 && (
-            <>
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">Technologies Used:</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
-                  >
-                    {tech}
-                  </span>
-                ))}
+    <div className="py-4">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div className="h-screen mb-10">
+        <div className="h-full">
+          <div className="flex mb-8 gap-x-4 h-full">
+            <div className="w-7/10">
+              <div className="">
+                  <GalleryCarousel media={project.media} /> 
               </div>
-            </>
-          )}
-        </div>
-
-        {(project.liveUrl || (project.links && project.links.length > 0)) && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Links</h2>
-            <div className="flex flex-wrap gap-4">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                >
-                  Live Demo
-                </a>
-              )}
-              {project.links &&
-                project.links.map((link, idx) => (
-                  <a
-                    key={idx}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                  >
-                    Link {idx + 1}
-                  </a>
-                ))}
+            </div>
+            <div className="w-3/10 flex flex-col h-full bg-black rounded-md">
+              <img
+                src={project.logo}
+                alt={project.title}
+                className='w-full h-50 rounded-md shrink-0' 
+              />
+              <div className="grow min-h-0 overflow-y-auto p-4">
+                <h1 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">{project.title}</h1>
+                <p className="text-base font-bold text-gray-900 dark:text-gray-500">
+                  {project.synopsis}
+                </p>
+                <ProjectMetadataTags project={project} />
+                <ProjectLinks project={project} />
+              </div>
             </div>
           </div>
-        )}
+        </div>
+      </div>
 
-        {project.collaborators && project.collaborators.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Collaborators</h2>
-            <ul className="list-disc list-inside space-y-1">
-              {project.collaborators.map((collaborator) => (
-                <li key={collaborator.name} className="text-gray-700 dark:text-gray-300">
-                  {collaborator.url ? (
-                    <a
-                      href={collaborator.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline dark:text-blue-400"
-                    >
-                      {collaborator.name}
-                    </a>
-                  ) : (
-                    collaborator.name
-                  )}
-                </li>
-              ))}
-            </ul>
+      <div className="mt-8">
+        <h2 className="text-3xl font-bold mb-4">Description</h2>
+        <p className="text-lg leading-relaxed">{project.description}</p>
+      </div>
+
+      <div className="my-8">
+        <h2 className="text-3xl font-bold mb-4">Techstack</h2>
+        {project.techStack.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {project.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
           </div>
         )}
+      </div>
 
-        <div className="mt-8 text-center">
-          <Link
-            href="/projects"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Back to Projects
-          </Link>
-        </div>
+      <div className="my-8">
+        <h2 className="text-3xl font-bold mb-4">Collaborators</h2>
+        <CollaboratorsList project={project} />
       </div>
     </div>
   );
-};
+}

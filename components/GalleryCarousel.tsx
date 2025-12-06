@@ -9,7 +9,7 @@ const getYouTubeId = (url: string): string | null => {
     /(?:youtube\.com\/embed\/)([^&\n?#]+)/,
     /^([a-zA-Z0-9_-]{11})$/
   ];
-  
+
   for (const pattern of patterns) {
     const match = url.match(pattern);
     if (match) return match[1];
@@ -35,14 +35,14 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
 
   const navigateToPrevious = useCallback(() => {
     setImageLoaded(false);
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? totalItems - 1 : prevIndex - 1
     );
   }, [totalItems]);
 
   const navigateToNext = useCallback(() => {
     setImageLoaded(false);
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === totalItems - 1 ? 0 : prevIndex + 1
     );
   }, [totalItems]);
@@ -94,10 +94,10 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
   const youtubeId = currentMedia.type === 'youtube' ? getYouTubeId(currentMedia.url) : null;
 
   return (
-    <div className="relative w-full max-w-5xl mx-auto overflow-visible">
+    <div className="relative w-full">
       {/* Main Media Display */}
       <div 
-        className="relative rounded-2xl shadow-2xl bg-linear-to-br from-gray-900 to-black m-8"
+        className="relative rounded-2xl shadow-2xl bg-linear-to-br from-gray-900 to-black" 
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
       >
@@ -180,11 +180,11 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
 
       {/* Thumbnail Navigation */}
       {totalItems > 1 && (
-        <div className="mt-6 mx-8">
+        <div className="mt-6">
           <div className="flex gap-3 pb-6">
             {sortedMedia.map((item, index) => {
               const thumbYoutubeId = item.type === 'youtube' ? getYouTubeId(item.url) : null;
-              
+
               return (
                 <button
                   key={index}

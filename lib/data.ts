@@ -5,10 +5,15 @@ export const projects: Project[] = [
     id: '1',
     title: 'Next.js SaaS Starter',
     slug: 'nextjs-saas-starter',
-    category: 'Web Dev',
+    synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
+    logo: 'https://picsum.photos/200',
+    tags: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
+    status: 'completed',
+    visibility: 'public',
+    projectKind: 'startup',
     techStack: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
     description:
-      'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
+      'A production-ready A prodA produA produA produA produA produA production-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,uction-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,SaaA production-ready SaaS starter kit featuring subscription billing, authentication,S A production-ready SaaS starter kit featuring subscription billing, authentication,starter kit featuring subscription billing, authentication, API routes, and an admin A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,dashboard.',
     media: [
       { type: 'video', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
       { type: 'youtube', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
@@ -16,13 +21,16 @@ export const projects: Project[] = [
       { type: 'image', url: 'https://images.unsplash.com/photo-1521791136064-7986c2920216' }
     ],
     liveUrl: 'https://nextjs-subscription-payments.vercel.app/',
-    links: ['https://github.com/vercel/nextjs-subscription-payments']
+    links: ['https://github.com/vercel/nextjs-subscription-payments'],
+    collaborators: [
+      { name: "ss", url: "hloo", role: "ss"}
+    ]
   },
   {
     id: '2',
     title: 'Realtime Chat App',
     slug: 'realtime-chat-app',
-    category: 'Web Dev',
+    synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
     techStack: ['Next.js', 'TypeScript', 'Socket.IO', 'Tailwind CSS'],
     description:
       'A modern real-time messaging platform with typing indicators, online status tracking, and persistent chat rooms.',
@@ -37,7 +45,7 @@ export const projects: Project[] = [
     id: '3',
     title: 'LinkTree Alternative',
     slug: 'linktree-clone',
-    category: 'Web Dev',
+    synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
     techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     description:
       'A customizable link-sharing hub with analytics, drag-and-drop ordering, and responsive design.',
@@ -52,7 +60,7 @@ export const projects: Project[] = [
     id: '4',
     title: 'AI Chat Application',
     slug: 'ai-chat-application',
-    category: 'Game Dev',
+    synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
     techStack: ['Next.js', 'OpenAI API', 'TypeScript'],
     description:
       'A ChatGPT-style interface with streaming responses, conversation history, and model presets.',
@@ -67,7 +75,7 @@ export const projects: Project[] = [
     id: '5',
     title: 'Supabase Todo App',
     slug: 'supabase-todo-app',
-    category: 'Web Dev',
+    synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
     techStack: ['Next.js', 'TypeScript', 'Supabase'],
     description:
       'A real-time collaborative todo manager powered by Supabase with secure auth and synchronized task updates.',
