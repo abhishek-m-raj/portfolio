@@ -8,6 +8,7 @@ import { Menu, X, Code } from 'lucide-react';
 const navItems = [
   { href: '/projects', label: 'Projects' , key: 'projects'},
   { href: '/contact', label: 'Contact' , key: 'contact1' },
+  { href: '/about', label: 'About' , key: 'about' },
 ];
 
 interface NavLinkProps {
