@@ -21,19 +21,19 @@ export default function Home() {
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-2">
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center px-10 py-4 border border-transparent text-lg font-bold rounded-xl shadow-lg transform transition duration-300 ease-in-out 
-                        text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-10 sm:py-4 border border-transparent text-base sm:text-lg font-bold rounded-xl shadow-lg transform transition duration-300 ease-in-out 
+                text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
               View My Projects
             </Link>
             <Link
               href="https://rxresu.me/abhishek-m-raj/abhishek-m-raj"
               target='blank'
-              className="inline-flex items-center justify-center px-10 py-4 border border-gray-300 dark:border-gray-700 text-lg font-medium rounded-xl shadow-md transform transition duration-300 ease-in-out 
-                        text-gray-900 bg-white hover:bg-gray-100 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-50"
+              className="inline-flex items-center justify-center px-6 py-3 sm:px-10 sm:py-4 border border-gray-300 dark:border-gray-700 text-base sm:text-lg font-medium rounded-xl shadow-md transform transition duration-300 ease-in-out 
+                text-gray-900 bg-white hover:bg-gray-100 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-50"
             >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m-5 3h4M16 7a4 4 0 01-4-4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9a4 4 0 01-4-4V7z"/></svg>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m-5 3h4M16 7a4 4 0 01-4-4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V9a4 4 0 01-4-4V7z"/></svg>
               Resume
             </Link>
           </div>
