@@ -105,7 +105,9 @@ export default function ProjectDetailPage() {
       </div>
 
       <div className="my-8">
-        <h2 className="text-3xl font-bold mb-4">Collaborators</h2>
+        {(project.collaborators ?? []).length > 0 && 
+          <h2 className="text-3xl font-bold mb-4">Collaborators</h2>
+        }
         <CollaboratorsList project={project} />
       </div>
     </div>
