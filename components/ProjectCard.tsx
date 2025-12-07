@@ -9,13 +9,15 @@ export default function ProjectCard({ project }: { project: Project }) {
     <Link href={`/projects/${project.slug}`} className="block group">
       <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 h-full border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:-translate-y-1 flex flex-col">
         <div className="relative w-full h-48 bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 overflow-hidden shrink-0">
-          {bannerImage ? (
+          {(project.banner ?? project.logo) ? (
             <>
-              <img
-                src={bannerImage}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              <div className="w-full h-50 rounded-md shrink-0 flex items-center justify-center overflow-hidden">
+                <img
+                  src={project.banner ?? project.logo}
+                  alt={project.title}
+                  className="max-h-full max-w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
               <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </>
           ) : (

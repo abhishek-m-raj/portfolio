@@ -3,9 +3,10 @@ import { TechStack } from "./techstack";
 export type ProjectKind =
   | 'startup'
   | 'open-source'
+  | 'contribution'
   | 'hackathon'
   | 'freelance'
-  | 'client'
+  | 'competition'
   | 'personal'
   | 'research'
   | 'experiment'

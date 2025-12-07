@@ -8,9 +8,9 @@ export default function ProjectTechStack({ project } : { project: Project }) {
 
   return (
     <div className="my-8">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
-        Technologies Used:
-      </h3>
+      <div className="mt-8">
+        <h2 className="text-3xl font-bold mb-4">TechStack</h2>
+      </div>
       <div className="flex flex-wrap gap-2">
         {project.techStack.map((tech) => {
           const badgeSrc = generateTechStackBadgeUrl(tech)

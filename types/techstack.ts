@@ -1,11 +1,13 @@
 export type TechStack =
+  | 'godot'
   // Core Languages & Runtimes
   | 'javascript'
   | 'typescript'
   | 'python'
+  | 'dart'
   | 'node.js'
   | 'html5'
-  | 'css3'
+  | 'css'
   // Frontend Frameworks & Libraries
   | 'react'
   | 'next.js'
@@ -15,6 +17,7 @@ export type TechStack =
   | 'jquery'
   | 'bootstrap'
   | 'tailwind css'
+  | 'flutter'
   // Backend Frameworks
   | 'express'
   | 'django'
@@ -34,16 +37,21 @@ export type TechStack =
   | 'npm'
   | 'yarn'
   | 'webpack'
+  | 'firebase'
+  | 'vercel'
+  | 'render'
   | 'babel';
 
 const TechColorMap: Record<TechStack, string> = {
+  'godot': '000000',        // Black
   // Core Languages & Runtimes
   'javascript': 'F7DF1E',   // Yellow
   'typescript': '3178C6',   // Blue
   'python': '3776AB',       // Blue
+  'dart': '00B4AB',         // Cyan
   'node.js': '339933',      // Green
   'html5': 'E34F26',        // Orange-Red
-  'css3': '1572B6',         // Blue
+  'css': '1572B6',         // Blue
   // Frontend Frameworks & Libraries
   'react': '61DAFB',        // Cyan
   'next.js': '000000',      // Black
@@ -53,6 +61,7 @@ const TechColorMap: Record<TechStack, string> = {
   'jquery': '0769AD',       // Blue
   'bootstrap': '7952B3',    // Purple
   'tailwind css': '06B6D4', // Cyan
+  'flutter': '02569B',      // Blue'
   // Backend Frameworks
   'express': '000000',      // Black
   'django': '092E20',       // Dark Green
@@ -72,6 +81,9 @@ const TechColorMap: Record<TechStack, string> = {
   'npm': 'CB3837',          // Red
   'yarn': '2C8EBB',         // Blue
   'webpack': '8DD6F9',      // Light Blue
+  'firebase': 'FFCA28',     // Yellow
+  'vercel': '000000',       // Black
+  'render': '000000',       // Black
   'babel': 'FCC700',        // Yellow
 };
 

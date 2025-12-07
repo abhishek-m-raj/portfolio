@@ -180,7 +180,7 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
 
       {/* Thumbnail Navigation */}
       {totalItems > 1 && (
-        <div className="mt-6">
+        <div className="mt-8 p-2 overflow-hidden">
           <div className="flex gap-3 pb-6">
             {sortedMedia.map((item, index) => {
               const thumbYoutubeId = item.type === 'youtube' ? getYouTubeId(item.url) : null;
