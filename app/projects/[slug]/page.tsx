@@ -8,6 +8,7 @@ import ProjectLinks from '@/components/ProjectLinks';
 import ProjectMetadataTags from '@/components/ProjectMetadataTags';
 import CollaboratorsList from '@/components/CollaboratorsList';
 import Breadcrumbs from '@/components/BreadCrumb';
+import ProjectTechStack from '@/components/ProjectTechStack';
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -88,21 +89,7 @@ export default function ProjectDetailPage() {
         <p className="text-lg leading-relaxed">{project.description}</p>
       </div>
 
-      <div className="my-8">
-        <h2 className="text-3xl font-bold mb-4">Techstack</h2>
-        {project.techStack.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
+      <ProjectTechStack project={project} />
 
       <div className="my-8">
         {(project.collaborators ?? []).length > 0 && 

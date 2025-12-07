@@ -1,3 +1,5 @@
+import { TechStack } from "./techstack";
+
 export type ProjectKind =
   | 'startup'
   | 'open-source'
@@ -35,7 +37,7 @@ export type Project = {
   visibility?: ProjectVisibility;
   tags?: string[];
 
-  techStack: string[];
+  techStack: TechStack[];
   description?: string;
 
   logo?: string;

@@ -1,17 +1,18 @@
-import { Project } from '@/types/project';
+import { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
     id: '1',
     title: 'Next.js SaaS Starter',
     slug: 'nextjs-saas-starter',
+    featured: true,
     synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
     logo: 'https://picsum.photos/200',
     tags: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
     status: 'completed',
     visibility: 'public',
     projectKind: 'startup',
-    techStack: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL', 'Prisma'],
+    techStack: ['node.js', 'next.js', 'typescript', 'postgresql', 'git'],
     description:
       'A production-ready A prodA produA produA produA produA produA production-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,ction-ready SaaS starter kit featuring subscription billing, authentication,uction-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,SaaA production-ready SaaS starter kit featuring subscription billing, authentication,S A production-ready SaaS starter kit featuring subscription billing, authentication,starter kit featuring subscription billing, authentication, API routes, and an admin A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,A production-ready SaaS starter kit featuring subscription billing, authentication,dashboard.',
     media: [
@@ -31,7 +32,7 @@ export const projects: Project[] = [
     title: 'Realtime Chat App',
     slug: 'realtime-chat-app',
     synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
-    techStack: ['Next.js', 'TypeScript', 'Socket.IO', 'Tailwind CSS'],
+    techStack: ['node.js', 'next.js', 'typescript', 'postgresql', 'git'],
     description:
       'A modern real-time messaging platform with typing indicators, online status tracking, and persistent chat rooms.',
     media: [
@@ -46,7 +47,7 @@ export const projects: Project[] = [
     title: 'LinkTree Alternative',
     slug: 'linktree-clone',
     synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    techStack: ['node.js', 'next.js', 'typescript', 'postgresql', 'git'],
     description:
       'A customizable link-sharing hub with analytics, drag-and-drop ordering, and responsive design.',
     media: [
@@ -61,7 +62,7 @@ export const projects: Project[] = [
     title: 'AI Chat Application',
     slug: 'ai-chat-application',
     synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
-    techStack: ['Next.js', 'OpenAI API', 'TypeScript'],
+    techStack: ['node.js', 'next.js', 'typescript', 'postgresql', 'git'],
     description:
       'A ChatGPT-style interface with streaming responses, conversation history, and model presets.',
     media: [
@@ -76,7 +77,7 @@ export const projects: Project[] = [
     title: 'Supabase Todo App',
     slug: 'supabase-todo-app',
     synopsis: 'A production-ready SaaS starter kit featuring subscription billing, authentication, API routes, and an admin dashboard.',
-    techStack: ['Next.js', 'TypeScript', 'Supabase'],
+    techStack: ['node.js', 'next.js', 'typescript', 'postgresql', 'git'],
     description:
       'A real-time collaborative todo manager powered by Supabase with secure auth and synchronized task updates.',
     media: [

@@ -4,13 +4,14 @@ import { useState, useEffect, useMemo } from 'react';
 import { Project, ProjectKind } from '@/types/project';
 import ProjectCard from '@/components/ProjectCard';
 import { Search, Filter, X } from 'lucide-react';
+import { formatTechStackDisplayName, TechStack } from '@/types/techstack';
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedKind, setSelectedKind] = useState<ProjectKind | 'all'>('all');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
-  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [selectedTech, setSelectedTech] = useState<TechStack | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,14 +45,14 @@ const ProjectsPage = () => {
   }, [projects]);
 
   const allTechStack = useMemo(() => {
-    const techs = new Set<string>();
-    projects.forEach(p => p.techStack?.forEach(t => techs.add(t)));
+    const techs = new Set<TechStack>();
+    projects.forEach(p => p.techStack?.forEach(t => techs.add(t as TechStack)));
     return Array.from(techs).sort();
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
     return projects.filter(project => {
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch = searchQuery === '' ||
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.synopsis.toLowerCase().includes(searchQuery.toLowerCase());
 
@@ -143,12 +144,14 @@ const ProjectsPage = () => {
 
             <select
               value={selectedTech || ''}
-              onChange={(e) => setSelectedTech(e.target.value || null)}
+              onChange={(e) => setSelectedTech((e.target.value as TechStack) || null)}
               className="px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
               <option value="">All Technologies</option>
               {allTechStack.map(tech => (
-                <option key={tech} value={tech}>{tech}</option>
+                <option key={tech} value={tech}>
+                  {formatTechStackDisplayName(tech)}
+                </option>
               ))}
             </select>
           </div>
