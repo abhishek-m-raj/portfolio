@@ -15,10 +15,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Personal Portfolio",
-  description: "A personal portfolio website showcasing various projects and skills.",
+export const metadata = {
+  title: "Abhishek M Raj",
+  description: "I’m Abhishek M. Raj, and I’ve always enjoyed taking ideas and shaping them into apps that feel clean, intuitive, and genuinely easy to use. I love building user-friendly experiences — the kind that look simple on the surface but are thoughtfully engineered underneath.",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-100x100.png", sizes: "100x100", type: "image/png" },
+    ],
+    apple: "/favicon-100x100.png",
+  },
 };
+
 
 export default function RootLayout({
   children,
