@@ -9,6 +9,7 @@ import ProjectMetadataTags from '@/components/ProjectMetadataTags';
 import CollaboratorsList from '@/components/CollaboratorsList';
 import Breadcrumbs from '@/components/BreadCrumb';
 import ProjectTechStack from '@/components/ProjectTechStack';
+import { Loader2 } from 'lucide-react';
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -37,7 +38,11 @@ export default function ProjectDetailPage() {
   }, [slug]);
 
   if (loading) {
-    return <div className="text-center py-8">Loading project details...</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    )
   }
 
   if (error) {

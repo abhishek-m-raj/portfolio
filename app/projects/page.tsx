@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Project, ProjectKind } from '@/types/project';
 import ProjectCard from '@/components/ProjectCard';
-import { Search, Filter, X } from 'lucide-react';
+import { Search, Filter, X, Loader2 } from 'lucide-react';
 import { formatTechStackDisplayName, TechStack } from '@/types/techstack';
 
 const ProjectsPage = () => {
@@ -77,10 +77,10 @@ const ProjectsPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="flex min-h-screen items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin" />
       </div>
-    );
+    )
   }
 
   if (error) {
