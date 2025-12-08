@@ -133,13 +133,6 @@ export default function ContactPage() {
                             </div>
                         </li>
                         <li className="flex items-start">
-                            <Phone className="w-6 h-6 text-blue-500 mr-4 mt-1 shrink-0" />
-                            <div>
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Phone</h3>
-                            <span className="text-gray-600 dark:text-gray-400">+91 8606002228</span>
-                            </div>
-                        </li>
-                        <li className="flex items-start">
                             <MapPin className="w-6 h-6 text-blue-500 mr-4 mt-1 shrink-0" />
                             <div>
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
