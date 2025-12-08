@@ -55,58 +55,56 @@ export default function ProjectDetailPage() {
   ];
 
   return (
-    <div className="py-4">
+    <div className="py-4 px-2 sm:px-4">
       <Breadcrumbs items={breadcrumbItems} />
-      <div className="h-screen mb-10">
-        <div className="h-full">
-          <div className="flex mb-8 gap-x-4 h-full">
-            <div className="w-7/10">
-                <GalleryCarousel media={project.media} /> 
-            </div>
-            <div className="w-3/10 flex flex-col h-full bg-black rounded-md">
-              {(project.banner ?? project.logo) ? (
-                <>
-                  <div className="w-full h-50 rounded-md shrink-0 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={project.banner ?? project.logo}
-                      alt={project.title}
-                      className="max-h-full max-w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </>
-              ) : (
-                <div className="w-full h-50 flex items-center justify-center">
-                  <div className="text-gray-400 dark:text-gray-600">
-                    <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                </div>
-              )}
-              <div className="grow min-h-0 overflow-y-auto p-4">
-                <h1 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">{project.title}</h1>
-                <p className="text-base font-bold text-gray-900 dark:text-gray-500">
-                  {project.synopsis}
-                </p>
-                <ProjectMetadataTags project={project} />
-                <ProjectLinks project={project} />
+      
+      <div className="mb-10">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-4">
+          <div className="w-full lg:w-7/10 shrink-0">
+            <GalleryCarousel media={project.media} /> 
+          </div>
+
+          <div className="w-full lg:w-3/10 flex flex-col bg-black rounded-md overflow-hidden">
+            {(project.banner ?? project.logo) ? (
+              <div className="w-full h-40 sm:h-48 lg:h-50 shrink-0 flex items-center justify-center overflow-hidden rounded-t-md">
+                <img
+                  src={project.banner ?? project.logo}
+                  alt={project.title}
+                  className="max-h-full max-w-full object-cover"
+                />
               </div>
+            ) : (
+              <div className="w-full h-40 sm:h-48 lg:h-50 flex items-center justify-center shrink-0">
+                <div className="text-gray-400 dark:text-gray-600">
+                  <svg className="w-12 h-12 sm:w-16 sm:h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            <div className="flex-1 min-h-0 overflow-y-auto p-3 sm:p-4">
+              <h1 className="text-base sm:text-lg font-bold mb-2 text-gray-900 dark:text-white">{project.title}</h1>
+              <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-500 mb-4">
+                {project.synopsis}
+              </p>
+              <ProjectMetadataTags project={project} />
+              <ProjectLinks project={project} />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-3xl font-bold mb-4">Description</h2>
-        <p className="text-lg leading-relaxed">{project.description}</p>
+      <div className="mt-8 sm:mt-10">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Description</h2>
+        <p className="text-base sm:text-lg leading-relaxed">{project.description}</p>
       </div>
 
       <ProjectTechStack project={project} />
 
-      <div className="my-8">
+      <div className="my-8 sm:my-10">
         {(project.collaborators ?? []).length > 0 && 
-          <h2 className="text-3xl font-bold mb-4">Collaborators</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Collaborators</h2>
         }
         <CollaboratorsList project={project} />
       </div>

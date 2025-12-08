@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+'use client';
+
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { ProjectMedia } from '@/types/project';
 
@@ -17,10 +19,20 @@ const getYouTubeId = (url: string): string | null => {
   return null;
 };
 
-export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
+type GalleryCarouselProps = {
+  media: ProjectMedia[];
+};
+
+export default function GalleryCarousel({ media }: GalleryCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const touchStartX = useRef(0);
+  const touchStartTime = useRef(0);
+  const isMouseDown = useRef(false);
+  const thumbnailContainerRef = useRef<HTMLDivElement>(null);
+  const scrollStartX = useRef(0);
 
   const sortedMedia = [...media].sort((a, b) => {
     const aIsVideo = a.type === 'video' || a.type === 'youtube';
@@ -31,7 +43,7 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
   });
 
   const totalItems = sortedMedia.length;
-  const currentMedia = sortedMedia[currentIndex];
+  const currentMedia = totalItems > 0 ? sortedMedia[currentIndex] : null;
 
   const navigateToPrevious = useCallback(() => {
     setImageLoaded(false);
@@ -52,7 +64,6 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
     setCurrentIndex(index);
   };
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') navigateToPrevious();
@@ -63,57 +74,117 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [navigateToPrevious, navigateToNext]);
 
-  // Touch swipe handling
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
+    if (e.touches.length === 1) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartTime.current = Date.now();
+    }
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartX.current) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const timeDiff = Date.now() - touchStartTime.current;
+    const distance = touchStartX.current - touchEndX;
+    const isSwipe = Math.abs(distance) > 50 && timeDiff < 500;
+
+    if (isSwipe) {
+      if (distance > 0) {
+        navigateToNext();
+      } else {
+        navigateToPrevious();
+      }
+    }
+
+    touchStartX.current = 0;
+    touchStartTime.current = 0;
   };
 
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) navigateToNext();
-    if (touchStart - touchEnd < -75) navigateToPrevious();
+  const handleMainMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).closest('button') || (e.target as HTMLElement).closest('video') || (e.target as HTMLElement).closest('iframe')) {
+      return;
+    }
+    // Don't allow dragging on main carousel
+    return;
   };
 
-  if (totalItems === 0) {
+  const handleThumbnailMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isMouseDown.current = true;
+    touchStartX.current = e.clientX;
+    scrollStartX.current = thumbnailContainerRef.current?.scrollLeft || 0;
+    touchStartTime.current = Date.now();
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isMouseDown.current || !thumbnailContainerRef.current) return;
+      const distance = e.clientX - touchStartX.current;
+      thumbnailContainerRef.current.scrollLeft = scrollStartX.current - distance;
+      setIsDragging(true);
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      if (!isMouseDown.current) return;
+      isMouseDown.current = false;
+      setIsDragging(false);
+      
+      touchStartX.current = 0;
+      touchStartTime.current = 0;
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, []);
+
+  if (totalItems === 0 || !currentMedia) {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-900 rounded-xl">
-        <svg className="w-16 h-16 mb-4 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <svg
+          className="w-16 h-16 mb-4 opacity-50"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
         </svg>
         <p className="text-lg">No media available</p>
       </div>
     );
   }
 
-  const youtubeId = currentMedia.type === 'youtube' ? getYouTubeId(currentMedia.url) : null;
+  const youtubeId =
+    currentMedia.type === 'youtube' ? getYouTubeId(currentMedia.url) : null;
 
   return (
     <div className="relative w-full">
-      {/* Main Media Display */}
-      <div 
-        className="relative rounded-2xl shadow-2xl bg-linear-to-br from-gray-900 to-black" 
-        onMouseEnter={() => setShowControls(true)}
-        onMouseLeave={() => setShowControls(false)}
-      >
-        <div 
-          className="relative w-full overflow-hidden rounded-2xl"
+      <div className="relative rounded-2xl shadow-2xl bg-black overflow-hidden">
+        <div
+          className="relative w-full"
           style={{ paddingBottom: '56.25%' }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          onMouseEnter={() => setShowControls(true)}
+          onMouseLeave={() => setShowControls(false)}
         >
-          <div className="absolute inset-0">
+          <div 
+            className="absolute inset-0 rounded-2xl overflow-hidden bg-gray-900" 
+            onTouchStart={handleTouchStart} 
+            onTouchEnd={handleTouchEnd} 
+            onMouseDown={handleMainMouseDown}
+          >
             {currentMedia.type === 'image' ? (
               <>
                 {!imageLoaded && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+                    <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                   </div>
                 )}
                 <img
@@ -123,6 +194,7 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => setImageLoaded(true)}
+                  draggable={false}
                 />
               </>
             ) : currentMedia.type === 'youtube' && youtubeId ? (
@@ -144,33 +216,33 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
               </video>
             )}
 
-            {/* Caption */}
             {currentMedia.caption && (
-              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black via-black/80 to-transparent p-6 z-10 pointer-events-none">
-                <p className="text-white text-sm md:text-base font-medium">{currentMedia.caption}</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black via-black/80 to-transparent p-6 pointer-events-none">
+                <p className="text-white text-sm md:text-base font-medium">
+                  {currentMedia.caption}
+                </p>
               </div>
             )}
 
-            {/* Navigation Arrows */}
             {totalItems > 1 && (
               <>
                 <button
                   onClick={navigateToPrevious}
-                  className={`absolute top-1/2 left-0 -translate-y-1/2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white px-2 py-4 md:px-2 md:py-4 rounded-md shadow-xl hover:bg-white dark:hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 z-10 ${
-                    showControls ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-full'
+                  className={`absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-lg shadow-lg transition-opacity duration-200 z-20 ${
+                    showControls ? 'opacity-100' : 'opacity-0'
                   }`}
                   aria-label="Previous media"
                 >
-                  <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+                  <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={navigateToNext}
-                  className={`absolute top-1/2 right-0 -translate-y-1/2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white px-2 py-4 md:px-2 md:py-4 rounded-md shadow-xl hover:bg-white dark:hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 z-10 ${
-                    showControls ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
+                  className={`absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-lg shadow-lg transition-opacity duration-200 z-20 ${
+                    showControls ? 'opacity-100' : 'opacity-0'
                   }`}
                   aria-label="Next media"
                 >
-                  <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
+                  <ChevronRight className="w-6 h-6" />
                 </button>
               </>
             )}
@@ -178,22 +250,30 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
         </div>
       </div>
 
-      {/* Thumbnail Navigation */}
       {totalItems > 1 && (
-        <div className="mt-8 p-2 overflow-hidden">
-          <div className="flex gap-3 pb-6">
+        <div 
+          ref={thumbnailContainerRef}
+          className="mt-6 overflow-x-auto scroll-smooth select-none" 
+          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', cursor: 'grab' }}
+          onMouseDown={handleThumbnailMouseDown}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="flex gap-3 px-2 pb-2 pt-2 pr-2">
             {sortedMedia.map((item, index) => {
-              const thumbYoutubeId = item.type === 'youtube' ? getYouTubeId(item.url) : null;
+              const thumbYoutubeId =
+                item.type === 'youtube' ? getYouTubeId(item.url) : null;
 
               return (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`relative shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-xl overflow-hidden transition-all duration-300 ${
+                  className={`relative shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden transition-all duration-200 ${
                     index === currentIndex
-                      ? 'ring-4 ring-blue-500 shadow-xl scale-105'
-                      : 'ring-2 ring-gray-300 dark:ring-gray-700 hover:ring-4 hover:ring-blue-400 shadow-md hover:scale-105'
+                      ? 'ring-3 ring-blue-500 shadow-lg scale-105'
+                      : 'ring-2 ring-gray-400 dark:ring-gray-600 hover:ring-blue-400 shadow-md'
                   }`}
+                  style={{ cursor: isDragging ? 'grab' : 'pointer' }}
                   aria-label={`Go to ${item.type} ${index + 1}`}
                 >
                   {item.type === 'image' ? (
@@ -201,18 +281,21 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
                       src={item.url}
                       alt={`Thumbnail ${index + 1}`}
                       className="w-full h-full object-cover"
+                      draggable={false}
                     />
                   ) : item.type === 'youtube' && thumbYoutubeId ? (
                     <div className="relative w-full h-full bg-gray-900">
                       <img
-                        src={item.thumbnail || `https://img.youtube.com/vi/${thumbYoutubeId}/mqdefault.jpg`}
+                        src={
+                          item.thumbnail ||
+                          `https://img.youtube.com/vi/${thumbYoutubeId}/mqdefault.jpg`
+                        }
                         alt={`YouTube thumbnail ${index + 1}`}
                         className="w-full h-full object-cover"
+                        draggable={false}
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
-                        <div className="bg-white/90 rounded-full p-2 shadow-lg">
-                          <Play className="w-5 h-5 text-gray-900" fill="currentColor" />
-                        </div>
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <Play className="w-5 h-5 text-white" fill="white" />
                       </div>
                     </div>
                   ) : (
@@ -222,14 +305,13 @@ export default function GalleryCarousel({ media }: { media: ProjectMedia[] }) {
                           src={item.thumbnail}
                           alt={`Video thumbnail ${index + 1}`}
                           className="w-full h-full object-cover"
+                          draggable={false}
                         />
                       ) : (
                         <div className="w-full h-full bg-linear-to-br from-gray-700 to-gray-900" />
                       )}
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[1px]">
-                        <div className="bg-white/90 rounded-full p-2 shadow-lg">
-                          <Play className="w-5 h-5 text-gray-900" fill="currentColor" />
-                        </div>
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <Play className="w-5 h-5 text-white" fill="white" />
                       </div>
                     </div>
                   )}
