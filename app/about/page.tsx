@@ -23,7 +23,7 @@ const myData = {
   title: "Full Stack Developer",
   imageUrl: "/profile.jpg",
   bio: `
-I’m Abhishek M. Raj, and I’ve always enjoyed taking ideas and shaping them into apps that feel clean, intuitive, and genuinely easy to use. I love building user-friendly experiences — the kind that look simple on the surface but are thoughtfully engineered underneath. Flutter and Django have become my go-to tools because they let me move fast, stay flexible, and craft smooth experiences across mobile, web, and desktop.
+Hey! I’m Abhishek M Raj, a B.Tech Computer Science student at UCEK Trivandrum passionate about building efficient, user-centered digital products and I’ve always enjoyed taking ideas and shaping them into apps that feel clean, intuitive, and genuinely easy to use. I love building user-friendly experiences — the kind that look simple on the surface but are thoughtfully engineered underneath. Flutter and Django have become my go-to tools because they let me move fast, stay flexible, and craft smooth experiences across mobile, web, and desktop.
 
 Good UI, clean layouts, and small details pull me in. I like figuring out how to make things feel natural, how to reduce friction, and how to build products people instantly understand without being told what to do.
 
