@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -27,7 +26,6 @@ export const metadata = {
     apple: "/favicon-100x100.png",
   },
 };
-
 
 export default function RootLayout({
   children,
