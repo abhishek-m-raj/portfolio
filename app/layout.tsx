@@ -23,7 +23,7 @@ export const metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-100x100.png", sizes: "100x100", type: "image/png" },
     ],
-    apple: "/favicon-100x100.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -34,6 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"></link>
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"></link>
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"></link>
+      <link rel="manifest" href="/site.webmanifest"></link>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50 min-h-screen flex flex-col`}
       >
