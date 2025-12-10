@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Abhishek M Raj",
-  description: "I’m Abhishek M. Raj, and I’ve always enjoyed taking ideas and shaping them into apps that feel clean, intuitive, and genuinely easy to use. I love building user-friendly experiences — the kind that look simple on the surface but are thoughtfully engineered underneath.",
+  description: "Hey! I'm Abhishek M Raj, a B.Tech Computer Science student at UCEK Trivandrum passionate about building efficient, user-centered digital products.",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
