@@ -1,6 +1,9 @@
 'use client'; 
 
 import React, { useState } from 'react';
+
+// Metadata for the page - moved to a separate metadata export since this is a client component
+// For proper SEO, consider creating a parallel route or layout for metadata
 import { Mail, Phone, MapPin } from 'lucide-react'; 
 import { Github, Twitter, Linkedin, Instagram } from 'lucide-react'; 
 

@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+
+// Metadata for the page - moved to a separate metadata export since this is a client component
+// For proper SEO, consider creating a parallel route or layout for metadata
 import { Project, ProjectKind } from '@/types/project';
 import ProjectCard from '@/components/ProjectCard';
 import { Search, Filter, X, Loader2 } from 'lucide-react';

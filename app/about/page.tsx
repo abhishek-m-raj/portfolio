@@ -1,4 +1,22 @@
 import React from 'react';
+import { Metadata } from 'next';
+import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'About Me',
+  description: 'Learn more about Abhishek M Raj - Full Stack Developer, UI/UX Designer, and B.Tech CS student at UCEK Trivandrum. Passionate about Flutter, Django, and building user-centered digital products.',
+  openGraph: {
+    title: 'About Abhishek M Raj',
+    description: 'Full Stack Developer & UI/UX Designer specializing in Flutter, Django, Next.js',
+  },
+};
+
+const socialLinks = [
+  { href: 'https://github.com/abhishek-m-raj', Icon: Github, label: 'GitHub Profile' },
+  { href: 'https://x.com/Abhishekmraj06', Icon: Twitter, label: 'X/Twitter Profile' },
+  { href: 'https://www.linkedin.com/in/abhishek-m-raj', Icon: Linkedin, label: 'LinkedIn Profile' },
+  { href: 'https://www.instagram.com/abhishekmraj06', Icon: Instagram, label: 'Instagram Profile' },
+];
 
 const BriefcaseIcon: React.FC = () => (
   <svg className="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -110,6 +128,31 @@ const AboutMePageDark: React.FC = () => {
                 ))}
               </ul>
             </div> */}
+
+            {/* Social Links Section */}
+            <div>
+              <h3 className="text-2xl font-bold text-indigo-400 flex items-center mb-4 border-b border-gray-700 pb-2">
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                </svg>
+                <span className="ml-2">Connect With Me</span>
+              </h3>
+              <div className="flex gap-4">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-lg bg-gray-700 hover:bg-indigo-600 text-gray-200 hover:text-white transition-all duration-300"
+                    aria-label={link.label}
+                    title={link.label}
+                  >
+                    <link.Icon size={20} />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
