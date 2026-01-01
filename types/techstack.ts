@@ -15,6 +15,7 @@ export type TechStack =
   | 'angular'
   | 'svelte'
   | 'jquery'
+  | 'gsap'
   | 'bootstrap'
   | 'tailwind css'
   | 'flutter'
@@ -59,6 +60,7 @@ const TechColorMap: Record<TechStack, string> = {
   'angular': 'DD0031',      // Red
   'svelte': 'FF3E00',       // Red-Orange
   'jquery': '0769AD',       // Blue
+  'gsap': '88CE02',         // Green
   'bootstrap': '7952B3',    // Purple
   'tailwind css': '06B6D4', // Cyan
   'flutter': '02569B',      // Blue'
